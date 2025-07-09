@@ -23,8 +23,13 @@ else ifeq ($(UNAME),Darwin)
 
 # Mac
 LIBEXT=dylib
-CFLAGS += -m$(MARCH) -I /usr/local/include -I /usr/local/include/freetype2
-LFLAGS += -Wl,-export_dynamic -L/usr/local/lib -L/usr/local/Cellar/freetype/2.12.1/lib
+
+BPREFIX := $(shell brew --prefix)
+
+BREW_FREETYPE := $(shell brew --prefix freetype)
+
+CFLAGS += -m$(MARCH) -I include -I /usr/local/include -I $(BREW_FREETYPE)/include/freetype2 -I /usr/local/opt/freetype2/include/freetype2 -I /Users/fboeuf/Documents/hashlink/include
+LFLAGS += -Wl,-export_dynamic -L/usr/local/lib -L/usr/local/opt/freetype2/lib -L$(BREW_FREETYPE)/lib -L/Users/fboeuf/Documents/hashlink/ -L/Users/fboeuf/Documents/hashlink/libs
 
 ifdef OSX_SDK
 ISYSROOT = $(shell xcrun --sdk macosx$(OSX_SDK) --show-sdk-path)
