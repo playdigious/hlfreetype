@@ -42,7 +42,7 @@ struct _hl_ftbmp {
 };
 
 
-#define FTERR(cmd) { FT_Error __ret = cmd; if( __ret ) hl_error_msg(USTR("Freetype error %#02x line %d"), __ret, __LINE__); }
+#define FTERR(cmd) { FT_Error __ret = cmd; if( __ret ) hl_throw(hl_alloc_strbytes(hl_to_utf16("Freetype error %#02x line %d"), __ret, __LINE__)); }
 
 HL_PRIM hl_ftlib *HL_NAME(init) () {
 	hl_ftlib *l = (hl_ftlib*)hl_gc_alloc_finalizer(sizeof(hl_ftlib));
